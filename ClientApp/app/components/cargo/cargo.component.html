@@ -1,0 +1,41 @@
+﻿<h1>Cargos</h1>
+<button class="btn btn-sm btn-info" (click)="showForm()">Novo cargo</button>
+<br /><br />
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Descricao</th>
+        <th>Ativo</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let cargo of cargos;">
+        <td>{{ cargo.cargoId }}</td>
+        <td>{{ cargo.descricao }}</td>
+        <td>{{ cargo.ativo }}</td>
+        <td><button class="btn btn-sm btn-info" (click)="edit(cargo)">Editar</button>&nbsp;&nbsp;<button class="btn btn-sm btn-danger" (click)="delete(cargo)">Excluir</button></td>
+    </tr>
+</table>
+
+<section>
+    <div class="row" *ngIf="isForm">
+        <div class="col-xs-12 col-sm-8 col-md-10">
+            <h2>{{ formLabel }}</h2>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <input type="hidden" formControlName="cargoId" />
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3">Descrição do cargo:</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <input class="form-control" type="text" formControlName="descricao" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-footer col-xs-12 col-sm-3 col-lg-offset-3">
+                    <button class="btn btn-sm btn-info" type="submit" [disabled]="!form.valid">{{ btnGravarValue }}</button>
+                    <button class="btn btn-sm btn-default" type="button" (click)="cancel()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
